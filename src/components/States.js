@@ -3,9 +3,9 @@ import { Countries, CountryState, StateCity } from './serverApi';
 import './state.css';
 
 const CitySelector = () => {
-  const [countries, setCountry] = useState([]);
+  const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
-  const [cities, setCity] = useState([]);
+  const [cities, setCities] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('');
   const [selectedState, setSelectedState] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
@@ -13,30 +13,30 @@ const CitySelector = () => {
   const [stateError, setStateError] = useState(null);
 
   useEffect(() => {
-    const getCountry = async () => {
+    const fetchCountries = async () => {
       try {
-        const responseCountry = await Countries();
-        const countryData = responseCountry.data;
-        setCountry(countryData);
+        const response = await Countries();
+        const countryData = response.data;
+        setCountries(countryData);
       } catch (error) {
         setCountryError('Error fetching countries');
       }
     };
 
-    getCountry();
+    fetchCountries();
   }, []);
 
   const handleCountryChange = async (e) => {
     const countryName = e.target.value;
     setSelectedCountry(countryName);
-    setStates([]);
     setSelectedState('');
     setSelectedCity('');
+    setStateError(null); // Reset state error on country change
 
     try {
-      const responseState = await CountryState(countryName);
-      const data = responseState.data;
-      setStates(data);
+      const response = await CountryState(countryName);
+      const stateData = response.data;
+      setStates(stateData);
     } catch (error) {
       setStateError('Error fetching states');
     }
@@ -46,13 +46,14 @@ const CitySelector = () => {
     const stateName = e.target.value;
     setSelectedState(stateName);
     setSelectedCity('');
+    
 
     try {
-      const responseCity = await StateCity(selectedCountry, stateName);
-      const data = responseCity.data;
-      setCity(data);
+      const response = await StateCity(selectedCountry, stateName);
+      const cityData = response.data;
+      setCities(cityData);
     } catch (error) {
-      console.error('Error fetching cities:', error);
+        setCities(error)
     }
   };
 
@@ -65,9 +66,9 @@ const CitySelector = () => {
     <div>
       {countryError && <div>Error fetching countries: {countryError}</div>}
       {stateError && <div>Error fetching states: {stateError}</div>}
-      <div className="selecte-country">
+      <div className="select-country">
         <h1>Select Location</h1>
-        <div className="selecte-country-name">
+        <div className="select-country-name">
           <div className="countries">
             <select value={selectedCountry} onChange={handleCountryChange}>
               <option value="">Select Country</option>
@@ -82,9 +83,9 @@ const CitySelector = () => {
           <div className="states">
             <select value={selectedState} onChange={handleStateChange} disabled={!selectedCountry}>
               <option value="">Select State</option>
-              {states.map((countryState) => (
-                <option key={countryState} value={countryState}>
-                  {countryState}
+              {states.map((state) => (
+                <option key={state} value={state}>
+                  {state}
                 </option>
               ))}
             </select>
@@ -92,7 +93,7 @@ const CitySelector = () => {
 
           <div className="cities">
             <select value={selectedCity} onChange={handleCityChange} disabled={!selectedState}>
-              <option value="">Select Cities</option>
+              <option value="">Select City</option>
               {cities.map((city) => (
                 <option key={city} value={city}>
                   {city}
@@ -101,8 +102,6 @@ const CitySelector = () => {
             </select>
           </div>
         </div>
-      </div>
-      <div>
         Selected Location: {selectedCity && selectedCity}, {selectedState && selectedState},{' '}
         {selectedCountry && selectedCountry}
       </div>
