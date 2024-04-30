@@ -102,6 +102,10 @@ const CitySelector = () => {
           </div>
         </div>
       </div>
+      <div>
+        Selected Location: {selectedCity && selectedCity}, {selectedState && selectedState},{' '}
+        {selectedCountry && selectedCountry}
+      </div>
     </div>
   );
 };
