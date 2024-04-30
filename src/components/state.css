@@ -1,4 +1,4 @@
-.selecte-country{
+.select-country{
 
     
      position: absolute;
@@ -9,7 +9,7 @@
      
 }
 
-.selecte-country-name{
+.select-country-name{
 
     display:  flex;
     justify-content: center;

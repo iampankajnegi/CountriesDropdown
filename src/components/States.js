@@ -102,8 +102,9 @@ const CitySelector = () => {
             </select>
           </div>
         </div>
-        Selected Location: {selectedCity && selectedCity}, {selectedState && selectedState},{' '}
+        <div>You Selected {selectedCity && selectedCity}, {selectedState && selectedState},{' '}
         {selectedCountry && selectedCountry}
+        </div>
       </div>
     </div>
   );
