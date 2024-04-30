@@ -1,11 +1,12 @@
 
 import './App.css';
-import States from './components/States';
+import CitySelector from './components/States';
+
 
 function App() {
   return (
     <div className="App">
-      <States/>
+      <CitySelector/>
     </div>
   );
 }
