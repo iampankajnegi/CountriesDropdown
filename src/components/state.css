@@ -1,0 +1,23 @@
+.selecte-country{
+
+    
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50% , -50%);
+     
+     
+}
+
+.selecte-country-name{
+
+    display:  flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.states{
+
+    margin: 0 10px;
+}
