@@ -71,7 +71,7 @@ const CitySelector = () => {
         <div className="select-country-name">
           <div className="countries">
             <select value={selectedCountry} onChange={handleCountryChange}>
-              <option value="">Select Country</option>
+              <option value={selectedCountry}>Select Country</option>
               {countries.map((country) => (
                 <option key={country} value={country}>
                   {country}
@@ -82,7 +82,7 @@ const CitySelector = () => {
 
           <div className="states">
             <select value={selectedState} onChange={handleStateChange} disabled={!selectedCountry}>
-              <option value="">Select State</option>
+              <option value={selectedState}>Select State</option>
               {states.map((state) => (
                 <option key={state} value={state}>
                   {state}
@@ -93,7 +93,7 @@ const CitySelector = () => {
 
           <div className="cities">
             <select value={selectedCity} onChange={handleCityChange} disabled={!selectedState}>
-              <option value="">Select City</option>
+              <option value={selectedCity}>Select City</option>
               {cities.map((city) => (
                 <option key={city} value={city}>
                   {city}
